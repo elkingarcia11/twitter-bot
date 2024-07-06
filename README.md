@@ -1,6 +1,6 @@
 # Bible Twitter Bot
 
-The Bible Twitter Bot is designed to randomly select verses from a Google Cloud database of Bible verses and post them to Twitter using the Twitter API every two hours.
+The Bible Twitter Bot is designed to select a random verse from my Google Cloud database of Bible verses and post them to Twitter using the Twitter API every hour.
 
 ## Table of Contents
 
