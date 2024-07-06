@@ -77,7 +77,7 @@ To implement scheduled Tweets:
 
 ### Production Link
 
-Visit [@bible_bihourly](https://twitter.com/bible_bihourly) on Twitter to interact with the bot's posts and page.
+Visit [@Hourly_Bible_](https://x.com/Hourly_Bible_) on Twitter to interact with the bot's posts and page.
 
 ## Contact
 
@@ -86,4 +86,4 @@ For questions, feedback, or inquiries, feel free to contact me via email at elki
 ## Acknowledgments
 
 - Special thanks to Tweepy for providing an accessible Python library for interacting with the Twitter API.
-- Gratitude to the [King JSON Bible](https://github.com/brendancol/king-json-bible) repository for providing the collection of verses used in this project. JSON files for specific books, verses, chapters, and texts were sourced from this repository.
+- Gratitude to the [aruljohn/Bible-kjv] (https://github.com/aruljohn/Bible-kjv) repository for providing the collection of verses used in this project. JSON files for specific books, verses, chapters, and texts were sourced from this repository.
