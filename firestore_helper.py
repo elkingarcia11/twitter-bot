@@ -4,9 +4,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
-
 class FirestoreHelper:
-    def __init__(self, credentials_file_path, collection_name, document_field_name, count_collection_name, count_document_field_name):
+    def __init__(self, credentials_file_path='credentials.json', collection_name= 'verses', document_field_name = 'text', count_collection_name= 'count', count_document_field_name= 'count'):
         """
         Initialize the FirestoreHelper.
 
@@ -54,11 +53,11 @@ class FirestoreHelper:
         """
         count = self.get_document_count()
         random_number = random.randint(0, count - 1)
-        documents = self.db.collection(self.collection_name).where(
-            FieldFilter('index', '==', random_number)).stream()
+        documents = self.db.collection(self.collection_name).limit(1).offset(random_number).stream()
         for document in documents:
+            print(document)
             doc_dict = document.to_dict()
-            return doc_dict[self.document_field_name]
+            return doc_dict
 
     def get_document_count(self):
         """
@@ -77,7 +76,7 @@ class FirestoreHelper:
             doc_dict = doc.to_dict()
             return doc_dict[self.count_document_field_name]
         else:
-            print('No such document!')
+            print('No documents!')
             return 0
 
     def delete_document(self, document_content, collection_to_delete_from):
@@ -113,3 +112,30 @@ class FirestoreHelper:
             You need to implement this function based on your document structure.
         """
         pass
+
+    def insert_document(self, document):
+        """
+        Inserts a string item into the database collection.
+
+        Args:
+            document (str): The string to be inserted into the database.
+
+        Returns:
+            None
+
+        Description:
+            This function checks if the input 'document' is a string and inserts it into
+            the database collection using a dictionary format, where the 'text' field
+            stores the content of the string.
+
+        Example:
+            doc = "This is a sample document."
+            insert_document(doc)
+        """
+        if isinstance(document, dict):
+            if 'text' in document and 'source' in document:
+                self.db.collection(self.collection_name).add({"text": document['text'], "source": document['source']})
+            else:                
+                print("Document is missing required fields: 'text' or 'source'")
+        else:
+            print("Provided document is not a dictionary")

@@ -1,5 +1,6 @@
 import os
 import json
+from firestore_helper import FirestoreHelper
 
 def merge_json_files(input_folder, output_file):
     merged_verses = []
@@ -45,7 +46,29 @@ def merge_json_files(input_folder, output_file):
 
     print(f'Merged verses written to {output_file}')
 
+# Function to count items in merged JSON data
+def count_items_in_json_file(json_file):
+    with open(json_file, 'r') as file:
+        merged_json_data = json.load(file)
+        num_items = len(merged_json_data)
+        return num_items
+    
+def add_json_data_to_db(json_file):
+    with open(json_file, 'r') as file:
+        merged_json_data = json.load(file)
+        # Initialize Firestore connection with configuration
+        firestore_helper = FirestoreHelper()
+         # Add each item to the database
+        for document in merged_json_data:
+            firestore_helper.insert_document(document)
+    
 # Example usage:
+"""
 input_folder = './json_data'
-output_file = './merged_data.json'
 merge_json_files(input_folder, output_file)
+output_file = './merged_data.json'
+num_items = count_items_in_json_file(output_file)
+print(f'Number of items: {num_items}')
+"""
+json_file = './merged_data.json'
+add_json_data_to_db(json_file)
